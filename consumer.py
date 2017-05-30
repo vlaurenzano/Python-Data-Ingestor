@@ -15,6 +15,7 @@ with MongoClient(host=MONGO_DB_HOST) as client:
         We could extend this to check for matches as well
         '''
         body = json.loads(body.decode("utf-8"), 'utf-8')
+        print('Inserting document from stream to database')
         db.institutions.insert_one(body)
 
 if __name__ == '__main__':
