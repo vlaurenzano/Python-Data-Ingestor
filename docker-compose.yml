@@ -1,0 +1,31 @@
+version: '2'
+services:
+  python:
+    build: ./infra/python
+    depends_on:
+      - mongo
+      - rabbitmq
+    links:
+      - mongo
+      - rabbitmq
+    volumes:
+     - .:/src
+    environment:
+      MESSAGE_QUEUE_ROUTE: 'insurance_info'
+      MESSAGE_QUEUE_HOST: 'rabbitmq'
+      MESSAGE_QUEUE_PORT: 5672
+      MONGO_DB_HOST: 'mongo:27017'
+      NYC_DATA_URL: 'https://data.cityofnewyork.us/resource/8nqg-ia7v.json'
+
+  rabbitmq:
+    image: rabbitmq:3.6.9-management
+    ports:
+      - "8080:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: 'guest'
+      RABBITMQ_DEFAULT_PASS: 'guest'
+  mongo:
+    image: mongo:3.0
+    ports:
+      - "27016:27017"
