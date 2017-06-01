@@ -44,6 +44,7 @@ To stream messages set up a listener with:
 | `make produce-stream`  | `docker-compose run python ./main.py consume` |
 
 and then call the following to stream data to it:
+
 | Makefile | docker  | 
 | ------------- | ------------- |
 | `make consume-stream`  | `docker-compose run python ./main.py produce` |
