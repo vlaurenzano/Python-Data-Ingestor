@@ -1,6 +1,6 @@
 import datetime
 from binascii import crc32
-
+from pymongo import TEXT
 from lib.services import *
 
 def run_ingestion(facility_collection, ingestion_collection, get_data_fn=get_data_from_source):
@@ -27,7 +27,7 @@ def ingest_data(collection, data, ingestion_id):
     :param dt: A python datetime object
     '''
     print('Ingesting data to database')
-    collection.create_index('checksum', unique=True)
+    ensure_indexes(collection)
     bulk = collection.initialize_unordered_bulk_op()
     for record in data:
         record = prepare_for_ingestion(record, ingestion_id)
@@ -36,6 +36,15 @@ def ingest_data(collection, data, ingestion_id):
     print(result)
     result = collection.update({"ingestion_id": { "$ne": ingestion_id}}, {"$set": {"active": False}})
     print(result)
+
+def ensure_indexes(collection):
+    '''
+    Make sure we have the proper indexes on our collection
+    :param collection: Our Mongo Collection
+    '''
+    collection.create_index('checksum', unique=True)
+    collection.create_index([('name_1',TEXT), ('name_2', TEXT), ('street_1', TEXT), ('street_2', TEXT), ('city', TEXT), ('zip', TEXT)],name="text_search_index")
+
 
 def prepare_for_ingestion(record, ingestion_id):
     '''
