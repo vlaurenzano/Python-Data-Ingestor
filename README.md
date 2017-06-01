@@ -1,6 +1,6 @@
 # NYC Insurance Open Data
 
-Loads a NYC Public Record Database into A Mongo Database. Includes a full etl which archives and reloads data if changes are reported in the source.
+Loads a NYC Public Record Database into a Mongo Database. Includes a full etl which archives and reloads data if changes are reported in the source.
 
 Can also be used to stream data over RabbitMQ. Streamed messages are automatically inserted.
 
@@ -8,35 +8,44 @@ Can also be used to stream data over RabbitMQ. Streamed messages are automatical
 
 Fully installable with docker:
 
-`docker-compose up`
+| Makefile  | docker |
+| ------------- | ------------- |
+|  `make launch-topology`  | `docker-compose up` |
 
-Or use the make file (which wraps the docker command
-
-`make launch-topology`
 
 Docker-compose will launch all the necessary databases and set the appropriate environment variables. If you would like to install locally, use python 3.5+ and run:
 
-`make install-local`
+| Makefile | pip|
+| ------------- | ------------- |
+| `make install-local` | `pip install -r requirements.txt` |
 
-This will install the required packages but you will still need to have the mongodb and rabbitmq. 
+
+This will install the required packages but you will still need to connect to mongodb and rabbitmq.
 
 ## Usage
 
 To start running the topology call:
 
-`make launch-topology`
+| Makefile | docker  | 
+| ------------- | ------------- |
+| `make launch-topology`  | `docker-compose up` |
+
 
 Then to start a new ingestion call:
 
-`make full-data-load`
+| Makefile | docker  | 
+| ------------- | ------------- |
+| `make full-data-load`  | `docker-compose run python ./main.py full` |
 
 To stream messages set up a listener with:
 
-`make consume-stream`
+| Makefile | docker  | 
+| ------------- | ------------- |
+| `make produce-stream`  | `docker-compose run python ./main.py consume` |
 
 and then call the following to stream data to it:
-
-`make produce-stream`
-
+| Makefile | docker  | 
+| ------------- | ------------- |
+| `make consume-stream`  | `docker-compose run python ./main.py produce` |
 
 
