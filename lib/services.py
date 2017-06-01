@@ -1,9 +1,9 @@
-from config import *
+from lib.config import *
 from pymongo import MongoClient
-import urllib
+import urllib.request
 import datetime
 import json
-from message_queue import MessageQueue
+from lib.message_queue import MessageQueue
 
 _mongo_db = None
 

@@ -1,10 +1,9 @@
 import unittest
 
-from ingest_data import *
-from services import *
+from lib.ingest_data import *
+from lib.services import *
 import datetime
-from config import *
-import json
+
 
 class TestIngestData(unittest.TestCase):
 

@@ -1,12 +1,7 @@
-import json
-from pymongo import MongoClient
-from config import *
-import urllib.request
-from pymongo import IndexModel
-from services import *
-
 import datetime
 from binascii import crc32
+
+from lib.services import *
 
 def run_ingestion(facility_collection, ingestion_collection, get_data_fn=get_data_from_source):
     '''

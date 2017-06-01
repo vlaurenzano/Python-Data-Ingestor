@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from services import *
-from ingest_data import run_ingestion, ingest_one
+from lib.services import *
+from lib.ingest_data import run_ingestion, ingest_one
 import argparse
 
 def full_ingestion():
