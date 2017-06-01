@@ -1,6 +1,6 @@
 import pika
 
-class Queue():
+class MessageQueue():
 
     def __init__(self, routing_key, host, port):
         '''
@@ -16,6 +16,9 @@ class Queue():
     def publish(self, message):
         self.channel.basic_publish(exchange='', routing_key=self.q_name, body=str(message))
 
+    def get_message(self):
+        return self.channel.basic_get(self.q_name)
+
     def consume(self, callback):
         self.channel.basic_consume(callback, queue=self.q_name, no_ack=True)
         self.channel.start_consuming()
@@ -23,7 +26,7 @@ class Queue():
     def __enter__(self):
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host, port=self.port))
         self.channel = self.connection.channel()
-        self.channel.queue_declare('insurance_info')
+        self.channel.queue_declare(self.q_name)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):

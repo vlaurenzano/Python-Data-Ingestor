@@ -11,10 +11,13 @@ services:
     volumes:
      - .:/src
     environment:
-      MESSAGE_QUEUE_ROUTE: 'insurance_info'
+      MESSAGE_QUEUE_ROUTE: 'facility_info'
       MESSAGE_QUEUE_HOST: 'rabbitmq'
       MESSAGE_QUEUE_PORT: 5672
       MONGO_DB_HOST: 'mongo:27017'
+      MONGO_DB_DB: 'nyc_facility_info'
+      MONGO_FACILITY_COLLECTION: 'facilities'
+      MONGO_INGESTION_COLLECTION: 'ingestions'
       NYC_DATA_URL: 'https://data.cityofnewyork.us/resource/8nqg-ia7v.json'
 
   rabbitmq:
