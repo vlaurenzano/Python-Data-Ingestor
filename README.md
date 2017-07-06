@@ -1,8 +1,8 @@
-# NYC Insurance Open Data
+# Python Data Ingestor
 
-Loads a NYC Public Record Database into a Mongo Database. Includes a full etl which archives and reloads data if changes are reported in the source.
+Loads a json data source Database into a Mongo Database. Includes a full etl which archives and loads changes if they are reported in the source.
 
-Can also be used to stream data over RabbitMQ. Streamed messages are automatically inserted.
+Can also be used to stream data over RabbitMQ. Streamed messages are automatically inserted and pinned to the latest ingestion id.
 
 ## Installation 
 
